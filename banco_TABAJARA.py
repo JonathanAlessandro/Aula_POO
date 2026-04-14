@@ -20,6 +20,7 @@ if opcao == 1:
     nome_cliente = str(input("Nome completo: "))
     cpf = int(input("CPF: "))
     tipo_conta  = str(input("Tipo da conta que deseja criar:  "))
+    df = pd.DataFrame()
     
     
     if os.path.exists(caminho_excel):
@@ -27,8 +28,9 @@ if opcao == 1:
         df = pd.read_excel(caminho_excel)
     else:
         print("caminho não existe")
-        criar_conta(nome_cliente,cpf,tipo_conta)
-        criar_conta.salvar_excel(caminho_excel)
+        conta = criar_conta(nome_cliente,cpf,tipo_conta)
+        novo_dado = conta.salvar_excel(caminho_excel)
+    df = pd.concat([df,novo_dado], ignore_index=True)
     df.to_excel(caminho_excel, index=False)
 elif opcao == 2:
     print("Opcao 2 selecionada")

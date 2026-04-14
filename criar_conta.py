@@ -26,5 +26,5 @@ class criar_conta:
         }
         
         excel = pd.DataFrame(dados_cliente)
-        
+        excel.to_excel(caminho_excel,index=False)
         return excel
