@@ -3,7 +3,7 @@ from Cliente import Cliente
 import pandas as pd
 from criar_conta import criar_conta
 import os 
-
+from Adcionar_conta import Adcionar_conta
 caminho_excel = "cliente_banco_Tabajara.xlsx"
 
 print("================================================")
@@ -22,14 +22,18 @@ if opcao == 1:
     tipo_conta  = str(input("Tipo da conta que deseja criar:  "))
     df = pd.DataFrame()
     
-    
     if os.path.exists(caminho_excel):
         print("Caminho existe")
         df = pd.read_excel(caminho_excel)
+        
+        adicionar = Adcionar_conta(nome_cliente,cpf,tipo_conta)
+        novo_dado = adicionar.adicionar(df)
+        print(novo_dado)
     else:
         print("caminho não existe")
         conta = criar_conta(nome_cliente,cpf,tipo_conta)
         novo_dado = conta.salvar_excel(caminho_excel)
+    
     df = pd.concat([df,novo_dado], ignore_index=True)
     df.to_excel(caminho_excel, index=False)
 elif opcao == 2:
